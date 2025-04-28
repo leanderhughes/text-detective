@@ -1,0 +1,561 @@
+
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script>
+    let myindex = '';
+   // let username = "<%= username %>";
+    //let token = "<%= token %>";
+    console.log('token',token);
+  </script>
+
+
+
+
+  <style>
+    .ql-container {
+      font-size:18px !important;
+    }
+
+    #text-container {
+      height:35vh;
+      overflow-y:auto;
+      border: 1px solid gray;
+      padding: 20px 20px 20px 20px;
+      margin-bottom: .5vh;
+      margin-top: .5vh;
+
+    }
+    #message-container {
+      height:24vh;
+      overflow-y: auto;
+      border: 1px solid gray;
+      display:block;
+      padding:10px 10px 10px 10px;
+      margin-bottom: .5vh;
+    }
+    #message-container div {
+      padding: 5px 5px 5px 5px;
+      margin-bottom: 2px;
+    }
+    #message-container div p {
+      border-radius: 5px 5px 5px 5px;
+      padding: 5px 10px 5px 35px;
+    }
+    div.my-line.time {
+      margin-top:10px;
+      background-color: none;
+      color:gray;
+      font-size:12px;
+    }
+    div.narration.time,div.partner-line.time,div.partner-line-2.time{
+      margin-top:10px;
+      background-color: none;
+      font-size:12px;
+      color:gray;
+      margin-left: 10%;
+    }
+    div.my-line p {
+      margin-right: 10%;
+      background-color: #533;
+    }
+    div.partner-line p {
+      background-color: #334;
+      margin-left: 10%;
+
+    }
+    div.partner-line-2 p {
+      background-color: #343;
+      margin-left: 10%;
+    }
+    .my-line,.partner-line,.partner-line-2 {
+      color:white;
+    }
+    div.narration {
+      margin-left: 10%;
+      opacity: .7;
+    }
+    div.narration.time {
+      opacity: 1;
+    }
+    #send-container {
+
+
+    }
+    #message-pre-input {
+      border: 1px solid gray;
+      padding:10px 10px 10px 10px;
+    }
+    .highlighted-error {
+      color: red !important;
+    }
+    .highlighted-error-reference {
+      color: red !important;
+    }
+    .detective-image {
+      width:10%;
+      margin-top: 10px;
+      overflow:hidden;
+    }
+    #content {
+      float:left;
+      width: 80%;
+    }
+    #detective-image-1 {
+      float:left;
+    }
+    #detective-image-2 {
+      float:left;
+    }
+
+    #points-container {
+      text-align:right;
+    }
+
+    #question-index-container {
+      text-align: center;
+    }
+
+    #time-left-container {
+      text-align:left;
+    }
+    
+    #message-container i {
+
+      margin-left:-30px;
+      margin-right:10px;
+    }
+
+    #question-container {
+      padding: 15px 15px 15px 15px;
+    }
+
+    #question-container table {
+      border-collapse: separate;
+    }
+
+    #question-container td {
+      border: 2px solid transparent;
+      margin: 2px 2px 2px 2px;
+    }
+  
+    #question-container td:hover {
+      border: 2px solid yellow;
+    }
+
+    #test {
+      font-size:26px;
+    }
+
+    #test a { 
+      line-height:250%;
+    }
+
+    #test span, #test div {
+      line-height:100%;
+    }
+
+    #test a.space {
+      display:inline-block;
+      white-space: normal;
+      min-width:25px;
+    }
+
+    #test a.punc-space-right {
+      text-align: left;
+      margin-right: 20px;
+      white-space: nowrap;
+    }
+
+    #test a.punc-space-left {
+      text-align: left;
+      margin-left: 20px;
+      white-space: nowrap;
+    }
+
+    #test a.w {
+      white-space: nowrap;
+
+    }
+
+    #test input {
+      border: 1px solid rgb(126, 92, 65);
+      line-height:100%;
+      /*size:1; for single char version*/
+      /*text-align:center;  for single char version*/
+      /*width:20px; for single char version*/
+    }
+
+    #testSubmitButton {
+      margin: 40px auto;
+      display:table;
+      font-size:40px;
+      padding: 20px 20px 20px 20px;
+    }
+
+    #testTimer,#test-question-count-container{
+      top:0px;
+      padding: 15px 15px 15px 15px;
+      border-radius: 5px 5px 5px 5px;
+    }
+
+    #testTimer {
+      color:white;
+      display:block;
+      position:fixed;
+      left:33%;     
+      z-index:99999999;
+    }
+
+    #test-question-count-container {
+      color:white;
+      display:block;
+      position:fixed;
+
+      left:66%;     
+      z-index:99999999;
+    }
+
+    .input-index-div {
+        opacity:.9;
+        position:absolute;
+        left:0;
+        top:40px;
+        z-index:900;
+        font-size:12px;
+        width:100%;
+        text-align: center; 
+        display:block;
+    }
+
+    .test-answers {
+      position:absolute;
+      top:-26px;
+      left:0;
+      padding:4px 4px 4px 4px;
+      font-size: 16px;
+      z-index:999;
+      background-color: var(--background-color);
+    }
+
+    .test-answer,.show-test-answers {
+
+      padding:2px 2px 2px 2px;
+  /*    margin: 2px 2px 2px 2px;*/
+      margin-right:4px;
+      border: 1px solid #575;
+      border-radius: 4px 4px 4px 4px;
+      background-color: rgba(125,125,125,.4);
+
+    }
+
+
+    .waiting {
+      opacity:.5;
+    }
+    
+    i {
+      position:relative;
+    }
+
+    .warn {
+      background-color: red;
+    }
+
+    #stats-container td {
+      color:white;
+      position:fixed;
+      top:-5px;
+      z-index: 9999999;
+      font-size: 26px;
+      padding: 15px 15px 15px 15px;
+      border-radius: 5px 5px 5px 5px;
+
+
+    }
+
+    #note-index-container,#question-index-container {
+      left: 47%;
+    }
+
+    #time-left-container {
+      left:20%;
+    }
+
+    #points-container {
+      left:70%;
+    }
+
+    #current-round {
+      display:none;
+    }
+
+    #task-complete td {
+      padding-right:20px;
+    }
+
+
+    .gsc-modal-background-image {
+      display: none !important;
+    }
+
+ 
+
+    .gsc-results-wrapper-overlay {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+    }
+
+ 
+    #___gcse_0 {
+      position:absolute;
+      left:-9999px;
+      top:-9999px;
+    }
+
+    #google-images {
+      display:none;
+    }
+
+    #looked-up-images img {
+      height: 150px;
+    }
+
+    #wordInfo td {
+      vertical-align: middle;
+    }
+
+
+
+    button.gsc-search-button.gsc-search-button-v2,div.gsc-tabHeader.gsc-tabhInactive.gsc-inline-block {
+      position:absolute;
+      left:0;
+      top:0;
+      z-index:999999999999; 
+    }
+
+    div.room { 
+      flex:auto;
+      max-width:450px;
+    }
+
+    .error-info {
+      opacity: .6;
+      font-weight: bold;
+    }
+
+    .action-info {
+      opacity: .6;
+    }
+
+    .chat-box {
+      border: 1px solid gray;
+      height: 400px;
+      overflow-y: scroll;
+      padding: 15px 15px 15px 15px;
+    }
+
+    #message button {
+      margin-right: 20px;
+    }
+  
+    #surveys {
+      min-height:200px;
+      -webkit-user-select: none; /* Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
+
+    #survey-title {
+      margin-top: 20px;
+      margin-bottom:20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    div.survey table {
+      table-layout: fixed ;
+      width:100%;
+    }
+
+    
+    div.survey table.short {
+      table-layout: fixed ;
+    }
+    div.survey table.short td {
+      width:100px;
+    }
+
+    div.survey tr.likert-values td {
+      text-align: center;
+      border:1px solid black;
+    }
+
+    
+
+
+    div.survey tr.likert-values td:hover {
+      text-align: center;
+      background-color: gray;
+      color:white;
+      cursor:pointer;
+    }
+
+    div.likert-labels {
+      width:100%;
+    }
+
+    span.likert-high-end {
+      float:right;
+    }
+
+    div.survey {
+      font-size:18px;
+    }
+
+    div.survey p {
+      margin-top:0px;
+      margin-bottom:0px;
+    }
+
+    div.survey td span {
+      max-width: 150px;
+    }
+
+    div.response {
+      margin-top:20px;
+      margin-bottom: 20px;
+    }
+
+    div.openText {
+      width:100%;
+      min-height:200px;
+      border: 1px solid black;
+      padding: 10px 10px 10px 10px;
+    }
+
+    td.selected {
+      background-color: darkGreen;
+      color:white;
+    }
+    div.survey tr.likert-values td.selected:hover {
+      background-color: darkGreen;
+      color:white;
+    }
+
+    .off-screen {
+      position:absolute;
+      left:-9999px;
+      top:-9999px;
+    }
+
+    button.link-button {
+      text-align: left;
+      background:none;
+      border: none;
+      color:blue;
+      min-width:100px;
+    }
+
+    button.link-button:hover{
+      text-decoration:underline;
+    }
+
+    div.response.incomplete {
+      background-color: pink;
+    }
+
+    input.open-sign {
+      font-family:cursive;
+      font-style:italic;
+    }
+
+
+  </style>
+
+
+  <script async="" src="https://cse.google.com/cse.js?cx=ef3edab8022eaa799"></script>
+  <div class="gcse-search"></div>
+  <div id="google-images"></div>
+  <div id="content">
+
+    <h1 class="survey-links">Surveys</h1>
+
+    <div id="surveys">
+
+      <div id="survey-links" class="survey-links"></div>
+
+      <div class="survey ql-snow" id="current-survey">
+
+      </div>
+
+
+    </div>
+
+    <div id="survey-creation"style="display:none">
+      <h2><span id="survey-action">Create New</span> Survey</h2>
+      <div id="create-edit-survey">
+        <div>
+          <label>
+            <input type="text" id="survey-title" placeholder="Survey Title">
+          </label>
+          <div>
+            <button class="link-button toggle-published" onclick="togglePublished(this)">Publish</button> <button class="link-button toggle-locked" onclick="toggleLocked(this)">Unlock</button>
+          </div>
+          
+        </div>
+    
+        <div id="editor">
+    
+          
+          <br></p><p>1. Item </p><p><br></p><p>2. Item</p><p><br></p>
+        </div>
+    
+        <button id="save-survey">Save Survey</button>
+      </div>
+    </div>
+
+
+    <!--<div style="display:block;width:100%;height:10px;">&nbsp;</div>-->
+
+  </div>
+  
+
+
+  
+
+  <script>
+
+    let currentSurveyId = '';
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+
+    const isTeacherParameter = "<%= isTeacher %>"=='true';
+
+    isTeacherParameter ? $('#survey-creation').show() : $('#survey-creation').hide();
+
+    const titleParameter = "<%=title%>";
+
+    isTeacherParameter && titleParameter && $('#survey-action').html('Edit');
+
+    titleParameter && $('.survey-links').hide();
+
+
+
+    isTeacherParameter && localStorage.getItem('survey-draft') && quill.setContents(JSON.parse(localStorage.getItem('survey-draft')));
+    
+    if(titleParameter){
+      $('#survey-title').val(titleParameter);
+    }
+    else{
+      localStorage.getItem('survey-title') && $('#survey-title').val(localStorage.getItem('survey-title'));
+    }
+
+
+    if(!token){
+      console.log('no token');
+    }
+
+
+  </script>

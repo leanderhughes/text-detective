@@ -1,0 +1,22 @@
+<% const formId = "delete_"+url.slice(url.lastIndexOf('/')+1).split('?')[0] %>
+<form method="POST" id="<%= formId %>" action="<%= url %>?_method=DELETE">
+    <button class="delete-button" type="submit">Delete</button>
+</form>
+
+<script>
+    document.getElementById("<%= formId %>").addEventListener('submit',function(e){
+        const $deleteButton = $(this).find('.delete-button');
+        const $cancelButton = $(this).find('.cancel-button');
+        if($deleteButton.html()=='Delete'){
+            e.preventDefault();
+            $deleteButton.html('Click again to delete');
+            $deleteButton.css('background-color','red');
+            setTimeout(function(){
+                $deleteButton.html('Delete');
+                $deleteButton.css('background-color','');
+            },3000);
+            return false;
+        }
+    });
+
+</script>

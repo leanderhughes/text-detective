@@ -1,0 +1,75 @@
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+
+
+<%- include('./partials/messages') %>
+
+<h1 class="mt-5 pt-2">Chat</h1>
+
+
+  
+
+
+<hr>
+<style>
+    .quill-editor {
+        white-space: pre-wrap;
+    }
+</style>
+
+<div id="output" class="edit-off reading-passage" class="col-md-8 offset-md-2">
+
+
+</div>
+<div style="display:none" class="edit-on" id="outputQuillContainer">
+    <div id="outputQuill">
+
+
+    </div>
+</div>
+
+
+<div id="room-container">
+    <% if(false && locals.rooms){ %>
+        <% Object.keys(rooms).forEach(room => { %>
+        <div><%= room %></div>
+        <a href="<%= locals.rootPath %>/chat/<%= room %>">Join</a>
+        <% }) %>
+    <% } %>
+  </div>
+  <form action="<%= locals.rootPath %>/chat/room" method="POST">
+    <input name="room" type="text" value="asdf" required>
+    <button type="submit">New Room</button>
+  </form>
+
+<script>
+
+   // const username = "<%= username %>";
+
+</script>
+
+
+<%if(locals.text){%>
+
+<script>
+
+    const {loadQuillOutput} = quillExtensions;
+
+    var content = JSON.parse(`<%- locals.text ? text : '[]' %>`.replace(/\n/g,'\\n'));
+    const outputQuill = loadQuillOutput('outputQuill','output',content,showWordInfo);
+
+    // `
+    
+    // decide
+    // congratulation
+    // repeat
+    // psychologist
+    
+    // `.trim().replace(/\W{1,100}/g,',').split(',')
+    // .forEach(w=>lookup(w));
+
+
+</script>
+
+<%}%>
+

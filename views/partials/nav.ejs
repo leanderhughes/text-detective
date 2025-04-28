@@ -1,0 +1,68 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" style="position:relative" href="<%= locals.rootPath %>/dashboard"><img src="<%= locals.rootPath %>/images/td_logo_white.png" style="margin-top:-4px;" height="36px">
+            <span style="color:white;font-style:italic;font-size:26px;position:absolute;transform:rotate(-33deg);left:42px;top:6px;" id="td-version"><%= locals.tdVersion ? locals.tdVersion : '' %></span>
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main_nav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="<%= locals.rootPath %>/tasks"> Tasks </a></li>
+            <%if(locals.isTeacher || locals.username=='k.imai.275@ms.saitama-u.ac.jp'  || locals.username=='iwashita.c.649@ms.saitama-u.ac.jp' || locals.username=='chat100@c.c'){%><!-- -->
+                <li class="nav-item"><a class="nav-link" href="<%= locals.rootPath %>/check-test"> Check Test </a></li>
+            <%}%>
+            <%if(locals.isTeacher){%>
+                <li class="nav-item"><a class="nav-link" href="<%= locals.rootPath %>/surveys"> Surveys </a></li>
+
+
+                <li class="nav-item"><a class="nav-link" href="<%= locals.rootPath %>/texts"> Texts </a></li>
+                <li class="nav-item"><a class="nav-link" href="<%= locals.rootPath %>/data"> Data </a></li>
+            <%}%>
+
+            
+            <li class="nav-item"><a class="nav-link" href="" id="toggleDisplayMode"> Toggle Display Mode </a></li>
+            <li class="nav-item"><a class="nav-link" style="cursor:pointer" nohref="nohref" id="toggleLanguage"> Toggle Language </a></li>
+            <li class="nav-item"><a class="nav-link" href="<%= locals.rootPath %>/users/logout"> Log out </a></li>
+        </ul>
+        <!-- rootPath: <%= rootPath %> -->
+        </div> <!-- navbar-collapse.// -->
+    </div> <!-- container-fluid.// -->
+</nav>
+<script>
+
+    const tdVersion = "<%= locals.tdVersion ? locals.tdVersion : '' %>";
+
+
+    !localStorage.getItem('displayMode') && localStorage.setItem('displayMode','dark');
+
+    $('#toggleDisplayMode').html(localStorage.getItem('displayMode')=='dark' ? 'Light Mode' : 'Dark Mode')
+
+    $('#toggleDisplayMode').mousedown(function(){
+        const displayMode = localStorage.getItem('displayMode');
+        localStorage.setItem('displayMode',displayMode=='dark' ? 'light' : 'dark');
+    });
+
+    let language = "<%= locals.language %>" || localStorage.getItem('language') || 'jp';
+    console.log('locals.language = '+"<%= locals.language %>");
+    localStorage.setItem('language',language);
+    $('#toggleLanguage').html(language=='ja' ? 'English' : '日本語');
+    $('#toggleLanguage').mousedown(function(){
+        language = language == 'ja' ? 'en' : 'ja';
+        localStorage.setItem('language',language);
+        $('#toggleLanguage').html(language=='ja' ? 'English' : '日本語');
+        if(socket){
+            socket.emit('toggle-language',language);
+        }
+    });
+
+    
+    document.addEventListener("DOMContentLoaded", function(){
+        // add padding top to show content behind navbar
+        navbar_height = document.querySelector('.navbar').offsetHeight;
+        document.body.style.paddingTop = navbar_height + 'px';
+
+
+    }); 
+</script>

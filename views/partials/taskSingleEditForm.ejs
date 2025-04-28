@@ -1,0 +1,4 @@
+<form method="POST" action="<%= url %>?_method=PUT">
+    <input type="hidden" name="singleEdit" value="<%= singleEdit %>">
+    <button type="submit"><%= singleEdit.slice(0,1).toUpperCase()+singleEdit.slice(1) %></button>
+</form>

@@ -1,0 +1,39 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@google-cloud/translate": "^6.3.0",
+    "autocorrect": "^1.2.0",
+    "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+    "googleapis": "^87.0.0",
+    "jquery": "^3.6.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.7",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.1.2",
+    "sortablejs": "^1.14.0",
+    "wink-pos-tagger": "^2.2.2",
+    "wordnet": "^0.1.2"
+  }
+}

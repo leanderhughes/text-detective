@@ -1,0 +1,721 @@
+
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script>
+    let myindex = '';
+   // let username = "<%= username %>";
+    const isTeacher = "<%= isTeacher %>"=='true';
+    const isAssistant = "<%= isAssistant %>" == 'true';
+  </script>
+
+
+
+
+  <style>
+    .ql-container {
+      font-size:18px !important;
+    }
+
+    #text-container {
+      height:35vh;
+      overflow-y:auto;
+      border: 1px solid gray;
+      padding: 20px 20px 20px 20px;
+      margin-bottom: .5vh;
+      margin-top: .5vh;
+
+    }
+    #message-container {
+      height:24vh;
+      overflow-y: auto;
+      border: 1px solid gray;
+      display:block;
+      padding:10px 10px 10px 10px;
+      margin-bottom: .5vh;
+    }
+    #message-container div {
+      padding: 5px 5px 5px 5px;
+      margin-bottom: 2px;
+    }
+    #message-container div p {
+      border-radius: 5px 5px 5px 5px;
+      padding: 5px 10px 5px 35px;
+    }
+    div.my-line.time {
+      margin-top:10px;
+      background-color: none;
+      color:gray;
+      font-size:12px;
+    }
+    div.narration.time,div.teacher.time,div.partner-line.time,div.partner-line-2.time{
+      margin-top:10px;
+      background-color: none;
+      font-size:12px;
+      color:gray;
+      margin-left: 10%;
+    }
+    div.my-line p {
+      margin-right: 10%;
+      background-color: #533;
+    }
+    div.partner-line p {
+      background-color: #334;
+      margin-left: 10%;
+
+    }
+    div.partner-line-2 p {
+      background-color: #343;
+      margin-left: 10%;
+    }
+    div.teacher p {
+      background-color: darkred;
+      border:1px solid gray;
+      margin-left: 10%;
+    }
+    .my-line,.partner-line,.partner-line-2,.teacher {
+      color:white;
+    }
+    div.narration {
+      margin-left: 10%;
+      opacity: .7;
+    }
+    div.narration.time {
+      opacity: 1;
+    }
+    #send-container {
+
+
+    }
+    #message-pre-input {
+      border: 1px solid gray;
+      padding:10px 10px 10px 10px;
+    }
+    .highlighted-error {
+      color: red !important;
+    }
+    .highlighted-error-reference {
+      color: red !important;
+    }
+    .detective-image {
+      width:10%;
+      margin-top: 10px;
+      overflow:hidden;
+    }
+    #content {
+      float:left;
+      width: 80%;
+    }
+    #detective-image-1 {
+      float:left;
+    }
+    #detective-image-2 {
+      float:left;
+    }
+
+    #points-container {
+      text-align:right;
+    }
+
+    #question-index-container {
+      text-align: center;
+    }
+
+    #time-left-container {
+      text-align:left;
+    }
+    
+    #message-container i {
+
+      margin-left:-30px;
+      margin-right:10px;
+    }
+
+    #question-container {
+      padding: 15px 15px 15px 15px;
+    }
+
+    #question-container table {
+      border-collapse: separate;
+    }
+
+    #question-container td {
+      border: 2px solid transparent;
+      margin: 2px 2px 2px 2px;
+    }
+  
+    #question-container td:hover {
+      border: 2px solid yellow;
+    }
+
+    #test {
+      font-size:26px;
+    }
+
+    #test a { 
+      line-height:250%;
+    }
+
+    #test span, #test div {
+      line-height:100%;
+    }
+
+    #test a.space {
+      display:inline-block;
+      white-space: normal;
+      min-width:25px;
+      white-space: auto;
+    }
+
+    #test a.punc-space-right {
+      text-align: left;
+      margin-right: 20px;
+      white-space: nowrap;
+    }
+
+    #test a.punc-space-left {
+      text-align: left;
+      margin-left: 20px;
+      white-space: nowrap;
+    }
+
+    #test a.w {
+      white-space: nowrap;
+
+    }
+
+    #test {
+      word-spacing: 15px;
+    }
+
+    #test input {
+      border: 1px solid rgb(126, 92, 65);
+      line-height:100%;
+      /*size:1; for single char version*/
+      /*text-align:center;  for single char version*/
+      /*width:20px; for single char version*/
+    }
+
+    #testSubmitButton {
+      margin: 40px auto;
+      display:table;
+      font-size:40px;
+      padding: 20px 20px 20px 20px;
+    }
+
+    #testTimer,#test-question-count-container{
+      top:0px;
+      padding: 15px 15px 15px 15px;
+      border-radius: 5px 5px 5px 5px;
+    }
+
+    #testTimer {
+      color:white;
+      display:block;
+      position:fixed;
+      left:33%;     
+      z-index:99999999;
+    }
+
+    #test-question-count-container {
+      color:white;
+      display:block;
+      position:fixed;
+
+      left:66%;     
+      z-index:99999999;
+    }
+
+    .input-index-div {
+        opacity:.9;
+        position:absolute;
+        left:0;
+        top:40px;
+        z-index:900;
+        font-size:12px;
+        width:100%;
+        text-align: center; 
+        display:block;
+    }
+
+    .nihongo-div {
+      opacity:.9;
+        position:absolute;
+        left:0;
+        top:-12px;
+        z-index:900;
+        font-size:12px;
+        width:100%;
+        text-align: center; 
+        display:block;   
+    }
+
+    .test-answers {
+      position:absolute;
+      top:-26px;
+      left:0;
+      padding:4px 4px 4px 4px;
+      font-size: 16px;
+      z-index:999;
+      background-color: var(--background-color);
+    }
+
+    .test-answer,.show-test-answers {
+
+      padding:2px 2px 2px 2px;
+  /*    margin: 2px 2px 2px 2px;*/
+      margin-right:4px;
+      border: 1px solid #575;
+      border-radius: 4px 4px 4px 4px;
+      background-color: rgba(125,125,125,.4);
+
+    }
+
+
+    .waiting {
+      opacity:.5;
+    }
+    
+    i {
+      position:relative;
+    }
+
+    .warn {
+      background-color: red;
+    }
+
+    .warn-text {
+      color:red;
+    }
+
+    #stats-container td {
+      color:white;
+      position:fixed;
+      top:-5px;
+      z-index: 9999999;
+      font-size: 26px;
+      padding: 15px 15px 15px 15px;
+      border-radius: 5px 5px 5px 5px;
+
+
+    }
+
+    #note-index-container,#question-index-container {
+      left: 47%;
+    }
+
+    #time-left-container {
+      left:20%;
+    }
+
+    #points-container {
+      left:70%;
+    }
+
+    #current-round {
+      display:none;
+    }
+
+    #task-complete td {
+      padding-right:20px;
+    }
+
+
+    .gsc-modal-background-image {
+      display: none !important;
+    }
+
+ 
+
+    .gsc-results-wrapper-overlay {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+    }
+
+ 
+    #___gcse_0 {
+      position:absolute;
+      left:-9999px;
+      top:-9999px;
+    }
+
+    #google-images {
+      display:none;
+    }
+
+    #looked-up-images img {
+      height: 150px;
+    }
+
+    #wordInfo td {
+      vertical-align: middle;
+    }
+
+
+
+    button.gsc-search-button.gsc-search-button-v2,div.gsc-tabHeader.gsc-tabhInactive.gsc-inline-block {
+      position:absolute;
+      left:0;
+      top:0;
+      z-index:999999999999; 
+    }
+
+    div.call-teacher {
+      margin-top:-2px;
+      float:right;
+    }
+
+    div.call-teacher:hover {
+      color:darkred;
+    }
+
+    #message button {
+      margin-right: 20px;
+    }
+  
+    .bright-warn {
+      background-color: darkred;
+      color:white
+    }
+
+    .translation-item {
+      border-radius: 15px 15px 15px 15px;
+      padding-left:10px;
+      padding-right:10px;
+    }
+
+    div.target-time-container {
+      width:100%;
+      text-align: right;
+      padding-right:8px;
+    }
+
+    div.target-time-icon {
+      position:relative;
+      font-size: 26px;
+      display:inline-block;
+      width:22px;
+      height:26px;
+    }
+    div.target-time-icon i {
+      position: absolute;
+      left:0;
+      top:0;
+    }
+    div.target-time-icon i.fa-check{
+      font-size:12px;
+      top:8px;
+      left:12px;
+      
+    }
+    div.target-time-icon i.fa-clock {
+      opacity:.5;
+      font-size: 22px;
+      top:10px;
+    }
+
+    html {
+      overflow: scroll !important;
+    }
+
+    #task-feedback {
+      width:100%;
+      min-height:100px;
+    }
+
+    
+    #surveys {
+      min-height:200px;
+      -webkit-user-select: none; /* Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
+
+    #survey-title {
+      margin-top: 20px;
+      margin-bottom:20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    div.survey table {
+      table-layout: fixed ;
+      width:100%;
+    }
+
+    
+    div.survey table.short {
+      table-layout: fixed ;
+    }
+    div.survey table.short td {
+      width:100px;
+    }
+
+    div.survey tr.likert-values td {
+      text-align: center;
+      border:1px solid black;
+    }
+
+    
+
+
+    div.survey tr.likert-values td:hover {
+      text-align: center;
+      background-color: gray;
+      color:white;
+      cursor:pointer;
+    }
+
+    div.likert-labels {
+      width:100%;
+    }
+
+    span.likert-high-end {
+      float:right;
+    }
+
+    td.selected {
+      background-color: darkGreen;
+      color:white;
+    }
+    div.survey tr.likert-values td.selected:hover {
+      background-color: darkGreen;
+      color:white;
+    }
+
+    .detective-role-emphasis, .witness-role-emphasis {
+      font-weight: bold;
+    }
+
+    span.detective-role-emphasis.role-highlight {
+      background-color: lightblue;
+    }
+
+    span.witness-role-emphasis.role-highlight {
+      background-color: lightcoral;
+    }
+
+  </style>
+
+  <img src="<%= locals.rootPath %>/images/detective_1_dark.png" class="detective-image" id="detective-image-1">
+  <script async="" src="https://cse.google.com/cse.js?cx=ef3edab8022eaa799"></script>
+  <div class="gcse-search"></div>
+  <div id="google-images"></div>
+  <div id="content">
+    <div id="loading-stage" class="loading-stage sequence">
+      <h1><br>Loading...</h1>
+    </div>
+    <div id="task-complete" class="task-complete sequence" style="display:none">
+      <h1>Task Complete!</h1>
+    </div>
+
+    <div id="pretest" class="pretest sequence" style="display:none">
+      <h1>Pre-Test</h1>
+      <h2 class="loading-test"><br>(Loading test...)</h2>
+    </div>
+    
+    <div id="posttest" class="posttest sequence" style="display:none">
+      <h1>Post-Test</h1>
+      <h2 class="loading-test"><br>(Loading test...)</h2>
+    </div>
+
+    <div id="posttest2" class="posttest2 sequence" style="display:none">
+      <h1>Post-Test 2</h1>
+      <h2 class="loading-test"><br>(Loading test...)</h2>
+    </div>
+
+    <div id="waiting-for-partner" class="waiting-for-partner sequence" style="display:none">
+      <p>Your partner is still finishing the previous activity. Please wait a bit...</p>
+    </div>
+
+    <div id="task" class="task waiting-for-partner sequence" style="display:none">
+
+      <div id="stats-container" class="task sequence">
+        <table>
+          <tr>
+            <td id="round-container" style="display:none">
+              Round <span id="current-round"></span>
+            </td>
+            <td id="time-left-container">
+              <i class="far fa-clock" alt="Time Left" title="Time Left" onclick="showIconInfo(this,'Time Left')"></i> <span id="time-left"></span>
+            </td>
+            <td id="note-index-container" style="display:none">
+              <i class="far fa-clipboard" alt="Note" title="Note" onclick="showIconInfo(this,'Note')"></i> <span id="note-index"></span>&frasl;<span id="note-count"></span>
+            </td>
+            <td id="question-index-container">
+               <span id="current-round-question-index"></span>&frasl;<span id="questions-per-round"></span>
+            </td>
+            <td id="points-container">
+              <i class="far fa-lightbulb" alt="Points" title="points" onclick="showIconInfo(this,'Points')"></i> <span id="current-points"></span>&frasl;<span id="points-possible"></span>
+            </td>
+          </tr>
+        </table>
+        
+
+      </div>
+    
+      <div id="text-container" class="task waiting-for-partner sequence">
+        
+        <div id="output" class="edit-off reading-passage" class="col-md-8 offset-md-2">
+    
+    
+        </div>
+        <div style="display:none" class="edit-on" id="outputQuillContainer">
+            <div id="outputQuill">
+    
+    
+            </div>
+        </div>
+    
+      </div>
+      <%- include('./partials/question') %>
+      <div id="message-container" class="task sequence">
+    
+      </div>
+      <form id="send-container" class="task sequence">
+        <input type="text" id="message-input" value="" style="display: none;">
+        <div contenteditable="true" spellcheck="true" class="contenteditable" id="message-pre-input">  </div>
+        <button type="submit" id="send-button">Send</button>
+        <span style="display:none" id="send-to-select-container">
+          <label>Send to 
+            <select id="send-to-select" onchange="this.className = this.value=='teacher' ? 'bright-warn' : ''">
+              <option value="">Everyone</option>
+              <option value="teacher" class="bright-warn">Teacher only</option>
+            </select>
+          </label>
+        </span>
+        <button id="save-note" style="display:none">Save Note</button>
+        <button id="finish-note" style="display:none">Save &amp; Finish Note</button>
+        <div class="call-teacher"><i class="fas fa-phone-square"></i></div>
+      </form>
+
+    </div>
+    <!--<div style="display:block;width:100%;height:10px;">&nbsp;</div>-->
+
+  </div>
+  
+
+  <img src="<%= locals.rootPath %>/images/detective_2_dark.png" class="detective-image" id="detective-image-2">
+  
+
+  <script>
+    
+
+    var messageQuill = '';
+
+    if($('#message-pre-input').length){
+
+      messageQuill = new Quill('#message-pre-input', {
+          theme: 'snow',
+          modules: {
+              toolbar: false
+          }
+      });
+
+      const form = document.getElementById('send-container');
+
+      form.addEventListener('submit',function(e){
+          //e.preventDefault();
+          document.getElementById('message-input').value = messageQuill.getText();//document.getElementsByClassName('ql-editor')[0].innerHTML;
+          return true;//return false;//
+      });
+    }
+
+    function showIconInfo(element,info){
+        const rect = element.getBoundingClientRect();
+        console.log('rect',rect);
+        const title = info;
+        elem.as({
+          div:{
+            text:title,
+            style:{
+              display:'block',
+              border:'1px solid #aaa',
+              position:'absolute',
+              top:Math.round(rect.height*1+7)+'px',
+              left:Math.round(rect.height*1)+'px',
+              padding:'7px 8px 7px 8px',
+              fontSize:'12px',
+              fontFamily:'sans-serif',
+              backgroundColor:'#444',
+              whiteSpace:'nowrap',
+              color:'white',
+              zIndex:999999
+            },
+            callback:function(el){
+              setTimeout(function(){
+                $(el).remove();
+              },1500);
+            }
+          }
+        }).to(element);
+    }
+
+
+    // const detectiveImage1 = elem.as({
+    //   img:{
+    //     id:"detective-image-1",
+    //     src:"<%= locals.rootPath %>/images/detective_1.png",
+    //     style:{
+    //       position:"absolute",
+    //       width:"20vh"
+    //     }
+    //   }
+    // });
+    // const detectiveImage2 = elem.as({
+    //   img:{
+    //     id:"detective-image-2",
+    //     src:"<%= locals.rootPath %>/images/detective_2.png",
+    //     style:{
+    //       position:"absolute",
+    //       width:"20vh"
+    //     }
+    //   }
+    // });
+    // function positionImages(){
+    //   const containerRect = document.querySelector('.container').getBoundingClientRect();
+    //   console.log(containerRect);
+    //   det1Rect = detectiveImage1.getBoundingClientRect();
+    //   det2Rect = detectiveImage2.getBoundingClientRect();
+    //   detectiveImage1.style.top = (containerRect.top+10)+'px';
+    //   detectiveImage1.style.left = (containerRect.left-det1Rect.width)+'px';
+    //   $(detectiveImage1).show();
+    //   $(detectiveImage2).show();
+    //   detectiveImage2.style.top = (containerRect.top)+'px';
+    //   detectiveImage2.style.left = (containerRect.right)+'px';
+    // }
+    // setTimeout(function(){
+    //   document.body.appendChild(detectiveImage1);
+    //   document.body.appendChild(detectiveImage2);
+    //   positionImages();
+
+
+    // },1000);
+
+    // $(window).resize(setTimeout(function(){
+    //   positionImages();
+    // },300));
+
+      $('.navbar-expand-lg').removeClass('navbar-expand-lg');
+
+      let timeLimitOff = false;
+
+      // setTimeout(function(){
+      //   isTeacher && elem.as('div',{
+      //     button:{
+      //       text:'Turn Timer Off',
+      //       onclick:function(){
+      //         if(this.innerHTML == 'Turn Time Limit OFF'){
+      //           timersOff = true;
+      //           this.innerHTML = 'Turn Time Limit ON';
+      //           return;
+      //         }
+      //         timersOff = false;
+      //         this.innerHTML = 'Turn Time Limit OFF';
+      //       }
+      //     }
+      // }).to(document.body);
+      // },2000);
+    
+
+  </script>

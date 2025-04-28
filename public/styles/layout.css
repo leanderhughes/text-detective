@@ -1,0 +1,10 @@
+.link {
+    color:#aaf;
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.link.active {
+    color: violet;
+    
+}

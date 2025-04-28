@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= `${locals.rootPath}/favicon`%>/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= `${locals.rootPath}/favicon`%>/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= `${locals.rootPath}/favicon`%>/favicon-16x16.png">
+    <link rel="manifest" href="<%= `${locals.rootPath}/favicon`%>/site.webmanifest">
+    <link rel="stylesheet" href="<%= `${locals.rootPath}/styles/text.css` %>">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="<%= locals.rootPath+'/styles/layout.css' %>" rel="stylesheet">
+    <script>
+      const rootPath = "<%= locals.rootPath ? locals.rootPath : '/' %>"
+      const username = "<%= locals.username ?  locals.username : '' %>";
+      const token = "<%= locals.token ?  locals.token : '(no token)' %>";
+      const wordNoteTime = <%= locals.wordNoteTime || 0 %>;
+      const sectionNoteTime = <%= locals.sectionNoteTime || 0 %>;
+      const itemTimeChat = <%= locals.itemTimeChat || 0 %>;
+      const itemTimeNote = <%= locals.itemTimeNote || 0 %>;
+
+    </script>
+
+    <script src="<%= locals.rootPath+'/scripts/jquery.js' %>"></script>
+    <script src="<%= locals.rootPath+'/scripts/elem.js' %>"></script>
+    <script src="<%= locals.rootPath+'/scripts/display-mode.js' %>" defer></script>
+    <script src="<%= locals.rootPath+'/socket.io/socket.io.js' %>" defer></script>
+    <script src="<%= locals.rootPath+'/scripts/socket.js' %>" defer></script>
+    <% if(typeof locals.scripts == 'string'){%>
+      <% locals.scripts.trim().replace(/\: /g,':').replace(/[\s,]{1,50}/g,',').split(',').forEach(scriptName=>{%> 
+          <% var defer = scriptName.split(':')[0]=='defer'; %>
+          <% scriptName = defer ? scriptName.slice(scriptName.indexOf(':')+1) : scriptName; %>
+          <% scriptName = !scriptName.match('/') ? `${locals.rootPath}/scripts/${scriptName}.js` : scriptName; %>
+          <% scriptName = scriptName.indexOf('../') > -1 ? locals.rootPath + '/' + scriptName.split('../')[1] : scriptName; %>
+          <script <%= defer ? 'defer' : '' %> src="<%= scriptName %>"></script>
+      <%});%>
+    <%}%>
+    <style>
+
+      body {
+        min-width:800px;
+      }
+      td {
+        vertical-align: top;
+      }
+      
+/*
+      body,button,input,textarea,.card {
+        color:white;
+        background-color: black;
+      }
+      .bg-primary {
+        background-color: #222!important;
+      }
+  */
+    </style>
+    <title>Text Detective</title>
+  </head>
+  <body>
+    <%- locals.name ? include('./partials/nav') : '' %>
+    <div class="container"><%- body %></div>
+
+   
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+
+  </body>
+</html>

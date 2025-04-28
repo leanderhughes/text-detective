@@ -1,0 +1,82 @@
+
+
+
+<style>
+  body {
+    background-color:black !important;
+  }
+</style>
+  
+
+
+    <div style="margin: 0 auto;display:table">
+      <img class="row" src="<%= locals.rootPath %>/images/title2.png" style="width:600px">
+    </div>
+<div class="row mt-5">
+
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        
+        <%- include('./partials/messages') %>
+        <form action="<%= locals.rootPath %>/users/login" method="POST">
+          <div class="form-group">
+            <input
+              type="text"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+              value=""
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter Password"
+              value=""
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <p class="lead mt-4">
+          No Account? <a href="<%= locals.rootPath %>/users/register">Register</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    var params = new URLSearchParams(window.location.search);
+    if(params.get('email') && params.get('password')){
+      $('#email').val(params.get('email'));
+      $('#password').val(params.get('password'));
+     // $('.btn-primary').trigger('click');
+    }
+    if(localStorage.getItem('wait')){
+      const wait = localStorage.getItem('wait') ? parseFloat(localStorage.getItem('wait')) : 0;
+      $('#email').val('chat'+wait);//Math.random() > .5 ? $('#email').val('chat'+wait) : $('#email').val('note'+wait);
+      $('#password').val('00000');
+      
+
+      if(localStorage.getItem('LeanderHere')){
+        $('#email').val('hughes');
+        $('#password').val(localStorage.getItem('LeanderHere'));
+      }
+
+      setTimeout(function(){
+        //$('.btn-primary').trigger('click');
+      },1000);
+    }
+    // window.addEventListener("load", function(){
+    //   if(navigator.userAgent.match("Firefox")){
+    //     document.querySelector('#email').value = 'b@b.b';
+    //     document.querySelector('#password').value = 'bbbbbb';
+    //   }
+    //   document.querySelector('.btn-primary').click();
+    // });
+    //document.querySelector('.btn-primary').click();
+  </script>

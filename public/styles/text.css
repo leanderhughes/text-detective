@@ -1,0 +1,10 @@
+
+
+#output a,#test a {
+    text-decoration:none;
+
+}
+#output img,#test img {
+    max-width: 500px;
+    height:auto;
+}

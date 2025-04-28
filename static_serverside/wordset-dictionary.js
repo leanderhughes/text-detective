@@ -1,0 +1,1 @@
+module.exports = require('./wordset-dictionary-master/index');

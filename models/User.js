@@ -1,0 +1,89 @@
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema({
+    personalName:{
+        type:String,
+        required:true
+    },
+    familyName:{
+        type:String,
+        required:true
+    },
+    name:{
+        type:String,
+        required:true       
+    },
+    sid:{
+        type:String,
+        required:true 
+    },
+    course:{
+        type:String,
+        default:''
+    },
+    formerCourses:{
+        type:Array,
+        default:[]
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    username:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    token:{
+        type:String
+    },
+    date:{
+        type:Date,
+        default:Date.now()
+    },
+    socketId:{
+        type:String,
+        default:''
+    },
+    isTeacher:{
+        type:Boolean,
+        default:false
+    },
+    isAssistant:{
+        type:Boolean,
+        default:false
+    },
+    experimentalGroup:{
+        type:Number
+    },
+    experimentalCondition:{
+        type:String
+    },
+    task:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Task'
+    },
+    language:{
+        type:'string',
+        default:'ja'
+    },
+    attemptLimit:{
+        type:Object,
+        default:{}
+    },
+    loggingIn:{
+        type:Boolean,
+        default:false
+    },
+    consent:{
+        type:Boolean,
+        default:false
+    }
+});
+
+const User = mongoose.model('User',UserSchema);
+
+module.exports = User;
